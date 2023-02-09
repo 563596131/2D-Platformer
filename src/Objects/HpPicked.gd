@@ -1,4 +1,4 @@
-class_name Coin
+class_name xl
 extends Area2D
 # Collectible that disappears when the player touches it.
 
@@ -13,8 +13,9 @@ export var fs: int = 1
 # Click the AnimationPlayer node to see the animation timeline.
 func _on_body_entered(_body):
 	animation_player.play("picked")
-	_body.emit_signal("collect_coin",fs)
-	$Timer.start(7)
+	_body.hp += 1
+	_body.emit_signal("collect_hp",_body.hp)
+	$Timer.start(15)
 
 func _on_Timer_timeout():
 	$AnimationPlayer.play("spinning")

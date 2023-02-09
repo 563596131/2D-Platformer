@@ -333,4 +333,11 @@ visibility_mode = 1
 [node name="flashTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
 [connection signal="timeout" from="flashTimer" to="." method="_on_flashTimer_timeout"]
+[connection signal="gui_input" from="CanvasLayer/Control" to="." method="_on_Control_gui_input"]

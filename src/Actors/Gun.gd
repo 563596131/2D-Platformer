@@ -13,14 +13,18 @@ onready var timer = $Cooldown
 
 # This method is only called by Player.gd.
 func shoot(direction = 1):
-	if not timer.is_stopped():
-		return false
-	var bullet = Bullet.instance()
-	bullet.global_position = global_position
-	bullet.linear_velocity = Vector2(direction * BULLET_VELOCITY, 0)
+	if Communal.BulletPicked> 0:
+		Communal.BulletPicked -=1
+		if not timer.is_stopped():
+			return false
+		for i in Communal.BulletNum:
+			var bullet = Bullet.instance()
+			bullet.global_position = global_position
+			bullet.linear_velocity = Vector2(direction * BULLET_VELOCITY, 0)
 
-	bullet.set_as_toplevel(true)
-	add_child(bullet)
-	sound_shoot.play()
-	timer.start()
-	return true
+			bullet.set_as_toplevel(true)
+			add_child(bullet)
+			yield(get_tree().create_timer(0.1),"timeout")
+		sound_shoot.play()
+		timer.start()
+		return true

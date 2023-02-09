@@ -1,7 +1,7 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/art/tileset/tileset.tres" type="TileSet" id=1]
-[ext_resource path="res://src/Actors/Enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Hongyi/EnemyReborn.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Platforms/Platform.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/Objects/Coin.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Level/Level.gd" type="Script" id=5]
@@ -9,6 +9,8 @@
 [ext_resource path="res://src/Level/ParallaxBackground.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/audio/music/music.ogg" type="AudioStream" id=8]
 [ext_resource path="res://src/Level/Music.gd" type="Script" id=9]
+[ext_resource path="res://src/Objects/HpPicked.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/Objects/BulletPicked.tscn" type="PackedScene" id=11]
 
 [sub_resource type="Animation" id=1]
 resource_name = "move"
@@ -88,7 +90,7 @@ scale = Vector2( 2, 2 )
 fs = 2
 
 [node name="CoinsVertical2" type="Node2D" parent="Coins"]
-position = Vector2( 509.055, -8.98655 )
+position = Vector2( 520, 30 )
 
 [node name="Coin" parent="Coins/CoinsVertical2" instance=ExtResource( 4 )]
 position = Vector2( -0.0551455, 15.9351 )
@@ -96,7 +98,7 @@ scale = Vector2( 2, 2 )
 fs = 2
 
 [node name="Coin2" parent="Coins/CoinsVertical2" instance=ExtResource( 4 )]
-position = Vector2( -0.0551455, -0.0649415 )
+position = Vector2( 6.10352e-05, 0 )
 scale = Vector2( 2, 2 )
 fs = 2
 
@@ -220,6 +222,69 @@ position = Vector2( -16, 0 )
 [node name="Coin3" parent="Coins/CoinsHorizontal5" instance=ExtResource( 4 )]
 position = Vector2( 16, 0 )
 
+[node name="HpPicked" type="Node" parent="."]
+
+[node name="HP" type="Node2D" parent="HpPicked"]
+
+[node name="Hp" parent="HpPicked/HP" instance=ExtResource( 10 )]
+position = Vector2( 819, 373 )
+
+[node name="Hp2" parent="HpPicked/HP" instance=ExtResource( 10 )]
+position = Vector2( 880, 85 )
+
+[node name="Hp3" parent="HpPicked/HP" instance=ExtResource( 10 )]
+position = Vector2( 98, 152 )
+
+[node name="Hp4" parent="HpPicked/HP" instance=ExtResource( 10 )]
+position = Vector2( 53, 26 )
+
+[node name="BulletPicked" type="Node" parent="."]
+
+[node name="BulletSquare" type="Node2D" parent="BulletPicked"]
+position = Vector2( 496, 528 )
+
+[node name="Bullet" parent="BulletPicked/BulletSquare" instance=ExtResource( 11 )]
+position = Vector2( -10, -8 )
+
+[node name="Bullet2" parent="BulletPicked/BulletSquare" instance=ExtResource( 11 )]
+position = Vector2( 10, -8 )
+
+[node name="Bullet3" parent="BulletPicked/BulletSquare" instance=ExtResource( 11 )]
+position = Vector2( -10, 8 )
+
+[node name="Bullet4" parent="BulletPicked/BulletSquare" instance=ExtResource( 11 )]
+position = Vector2( 10, 8 )
+
+[node name="BulletSquare2" type="Node2D" parent="BulletPicked"]
+position = Vector2( 192, 117 )
+
+[node name="Bullet" parent="BulletPicked/BulletSquare2" instance=ExtResource( 11 )]
+position = Vector2( -10, -8 )
+
+[node name="Bullet2" parent="BulletPicked/BulletSquare2" instance=ExtResource( 11 )]
+position = Vector2( 10, -8 )
+
+[node name="Bullet3" parent="BulletPicked/BulletSquare2" instance=ExtResource( 11 )]
+position = Vector2( -10, 8 )
+
+[node name="Bullet4" parent="BulletPicked/BulletSquare2" instance=ExtResource( 11 )]
+position = Vector2( 10, 8 )
+
+[node name="BulletSquare3" type="Node2D" parent="BulletPicked"]
+position = Vector2( 21, 17 )
+
+[node name="Bullet" parent="BulletPicked/BulletSquare3" instance=ExtResource( 11 )]
+position = Vector2( -10, -8 )
+
+[node name="Bullet2" parent="BulletPicked/BulletSquare3" instance=ExtResource( 11 )]
+position = Vector2( 10, -8 )
+
+[node name="Bullet3" parent="BulletPicked/BulletSquare3" instance=ExtResource( 11 )]
+position = Vector2( -10, 8 )
+
+[node name="Bullet4" parent="BulletPicked/BulletSquare3" instance=ExtResource( 11 )]
+position = Vector2( 10, 8 )
+
 [node name="Platforms" type="Node" parent="."]
 
 [node name="Platform" parent="Platforms" instance=ExtResource( 3 )]
@@ -259,27 +324,38 @@ polygon = PoolVector2Array( -129.699, 9.94633, -47, -10.5, 8, -7, 10, -1.5, -46.
 
 [node name="Enemies" type="Node" parent="."]
 
-[node name="Enemy" parent="Enemies" instance=ExtResource( 2 )]
-position = Vector2( 271.04, 245.639 )
+[node name="EnemyReborn" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 365, 565 )
 
-[node name="Enemy2" parent="Enemies" instance=ExtResource( 2 )]
-position = Vector2( 346.109, 48.5631 )
+[node name="EnemyReborn2" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 0, 400 )
 
-[node name="Enemy3" parent="Enemies" instance=ExtResource( 2 )]
-position = Vector2( 632.725, 78.5545 )
+[node name="EnemyReborn3" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 800, 435 )
 
-[node name="Enemy4" parent="Enemies" instance=ExtResource( 2 )]
-position = Vector2( 828.515, 77.262 )
+[node name="EnemyReborn4" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 600, 85 )
 
-[node name="Enemy5" parent="Enemies" instance=ExtResource( 2 )]
-modulate = Color( 0.0196078, 0.164706, 0.0117647, 1 )
-position = Vector2( -96, 406 )
-speed = Vector2( 250, 250 )
+[node name="EnemyReborn5" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 715, 85 )
 
-[node name="Enemy6" parent="Enemies" instance=ExtResource( 2 )]
-modulate = Color( 0.0823529, 0.129412, 0.807843, 1 )
-position = Vector2( 783, 434 )
-speed = Vector2( 200, 250 )
+[node name="EnemyReborn6" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 820, 85 )
+
+[node name="EnemyReborn7" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 80, 20 )
+
+[node name="EnemyReborn8" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 100, 210 )
+
+[node name="EnemyReborn9" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 340, 245 )
+
+[node name="EnemyReborn10" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 300, 55 )
+
+[node name="EnemyReborn11" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( -130, 400 )
 
 [node name="ParallaxBackground" parent="." instance=ExtResource( 7 )]
 

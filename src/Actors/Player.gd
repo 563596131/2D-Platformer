@@ -18,7 +18,7 @@ onready var sound_jump = $Jump
 onready var gun = sprite.get_node(@"Gun")
 var flash = false
 var hurt = false
-
+var yxflash = false
 func _ready():
 	# Static types are necessary here to avoid warnings.
 	var camera: Camera2D = $Camera
@@ -52,14 +52,16 @@ func _ready():
 #   (Ctrl Alt F) to quickly jump to the corresponding function.
 # - If you split the character into a state machine or more advanced pattern,
 #   you can easily move individual functions.
-var doubleJump = 2
+var doubleJump = 1
+var doubleJump_max = 1
 func _physics_process(_delta):
 	# Play jump sound
 	if Input.is_action_just_pressed("jump" + action_suffix) and is_on_floor():
 		sound_jump.play()
-	if Input.is_action_just_pressed("flash"):
-		flash = true
-		$flashTimer.start(0.2)
+	if yxflash:
+		if Input.is_action_just_pressed("flash"):
+			flash = true
+			$flashTimer.start(0.2)
 	
 	if flash:
 		if sprite.scale.x == 1:
@@ -69,7 +71,7 @@ func _physics_process(_delta):
 	
 	var direction = get_direction()
 	if is_on_floor():
-		doubleJump = 2
+		doubleJump = doubleJump_max
 		
 	var is_jump_interrupted = Input.is_action_just_released("jump" + action_suffix) and _velocity.y < 0.0
 	_velocity = calculate_move_velocity(_velocity, direction, speed, is_jump_interrupted)
@@ -95,8 +97,7 @@ func _physics_process(_delta):
 	# There are many situations like these where you can reuse existing properties instead of
 	# creating new variables.
 	var is_shooting = false
-	if Input.is_action_just_pressed("shoot" + action_suffix):
-		is_shooting = gun.shoot(sprite.scale.x)
+	
 
 	var animation = get_new_animation(is_shooting)
 	if animation != animation_player.current_animation and shoot_timer.is_stopped():
@@ -165,3 +166,10 @@ func hurt_play():
 		$AnimationPlayer.play("injured")
 		hp -= 1
 		emit_signal("collect_hp",hp)
+
+
+func _on_Control_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.pressed:
+			gun.shoot(sprite.scale.x)
+	pass # Replace with function body.

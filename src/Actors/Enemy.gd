@@ -1,7 +1,7 @@
 class_name Enemy
 extends Actor
 
-
+signal collect_destroy()
 enum State {
 	WALKING,
 	DEAD,
@@ -60,9 +60,13 @@ func _physics_process(_delta):
 
 
 func destroy():
-	_state = State.DEAD
-	_velocity = Vector2.ZERO
-
+	if _state != State.DEAD:
+		print("aaaads")
+		_state = State.DEAD
+		_velocity = Vector2.ZERO
+		Communal.EnemyPicked += 1
+		$CollisionShape2D.disabled = true
+		emit_signal("collect_destroy")
 
 func get_new_animation():
 	var animation_new = ""
@@ -77,6 +81,7 @@ func get_new_animation():
 	
 
 func _on_Area2D_body_entered(body):
-	if body is Player:
-		body.hurt_play()
-		print("aaaaaaaa")
+	if _state != State.DEAD:
+		if body is Player:
+			body.hurt_play()
+

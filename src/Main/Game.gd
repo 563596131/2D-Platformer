@@ -6,8 +6,12 @@ extends Node
 # The "_" prefix is a convention to indicate that variables are private,
 # that is to say, another node or script should not access them.
 onready var _pause_menu = $InterfaceLayer/PauseMenu
+func _ready():
+	Communal.difficulty = Communal.difficulty
 
-
+func _physics_process(delta):
+	$InterfaceLayerInGame/Control/VBoxContainer/HeartsCounter2/Label.text = str(Communal.BulletPicked)
+	$InterfaceLayerInGame/Control/VBoxContainer/HeartsCounter3/Label.text = str(Communal.EnemyPicked)
 func _init():
 	OS.min_window_size = OS.window_size
 	OS.max_window_size = OS.get_screen_size()
@@ -56,4 +60,57 @@ func _on_Player_collect_coin(fs):
 func _on_Player_collect_hp(hp):
 	$InterfaceLayerInGame/Control/VBoxContainer/HeartsCounter/Label.text = str(hp)
 	if hp < 1:
-		get_tree().change_scene("res://src/Main/Game.tscn")
+		get_tree().change_scene("res://Hongyi/Control.tscn")
+func CoinCost(value):
+	if int($InterfaceLayerInGame/Control/VBoxContainer/CoinsCounter/Label.text)-value >= 0:
+		$InterfaceLayerInGame/Control/VBoxContainer/CoinsCounter/Label.text = str(int($InterfaceLayerInGame/Control/VBoxContainer/CoinsCounter/Label.text) - value)
+		return true
+	return false
+func _on_Button_pressed():
+	if CoinCost(1):
+		Communal.BulletPicked += 1
+	pass # Replace with function body.
+
+
+func _on_Buttonhp_pressed():
+	if CoinCost(5):
+		$Level/Player.hp += 1
+		$InterfaceLayerInGame/Control/VBoxContainer/HeartsCounter/Label.text = str($Level/Player.hp)
+	pass # Replace with function body.
+
+
+func _on_Buttongw_pressed():
+	if CoinCost(10):
+		Communal.EnemyPicked += 1
+	pass # Replace with function body.
+
+var edt = false
+func _on_Buttonedt_pressed():
+	if !edt:
+		if CoinCost(5):
+			$Level/Player.doubleJump = 2
+			$Level/Player.doubleJump_max = 2
+			edt = true
+	pass # Replace with function body.
+
+
+func _on_Buttoncc_pressed():
+	if !$Level/Player.yxflash:
+		if CoinCost(10):
+			$Level/Player.yxflash = true
+	pass # Replace with function body.
+
+
+func _on_Buttonvq_pressed():
+	if CoinCost(50):
+		get_tree().change_scene("res://Control.tscn")
+	pass # Replace with function body.
+
+
+func _on_Buttonsj_pressed():
+	if Communal.EnemyPicked - 3 >= 0:
+		Communal.BulletNum += 1
+		Communal.EnemyPicked -= 3
+		print("aaaee")
+		$InterfaceLayerInGame/Control/VBoxContainer/HeartsCounter3/Label.text = str(Communal.EnemyPicked)
+	pass # Replace with function body.
