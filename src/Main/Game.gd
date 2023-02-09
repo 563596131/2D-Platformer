@@ -103,7 +103,7 @@ func _on_Buttoncc_pressed():
 
 func _on_Buttonvq_pressed():
 	if CoinCost(50):
-		get_tree().change_scene("res://Control.tscn")
+		get_tree().change_scene("res://Hongyi/Control.tscn")
 	pass # Replace with function body.
 
 
